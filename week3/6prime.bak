@@ -1,0 +1,9 @@
+(define (prime? n)
+  (define (helper i)
+    (if (> i (sqrt n)) #t
+        (if  (= (remainder n i) 0) #f
+             (helper (+ 1 i))))    
+    )
+  (if (< n 2) #t
+      (helper 2))
+  )
