@@ -1,3 +1,5 @@
+;Tema 1
+
 (define (sum_direves x k)
   (define (helper sum number)
     (cond ((= 0 (quotient number 10)) (if (= 0 (remainder (+ sum (remainder number 10)) k)) x +inf.0))
@@ -44,3 +46,34 @@
   (helper l1 l2 '()))
 
  (occurrences '(1 2 3) '( 1 2 4 1 ))
+
+
+
+;Tema 2
+
+(define (divisors-sum n )
+  (define (helper sum i)
+    (if (> i n) sum
+        (if (= (remainder n i) 0) (helper (+ sum i) (+ i 1))
+        (helper sum (+ i 1))))
+    )
+  (if (< n 2) n
+      (helper 0 1))
+    
+  )
+
+(divisors-sum 10)
+(divisors-sum 28)
+(divisors-sum 13)
+(divisors-sum 4)
+
+
+(define (prod-sum-div a b k)
+  (define (helper i lst)
+    (cond ((= i b) (if (= (divisors-sum b) k) (list b) '()))
+          ((= i (divisors-sum k)) (helper (+ i 1) (cons i lst)))
+          (else (helper (+ i 1) lst))))
+  (helper a '()))
+
+(prod-sum-div 1 100 7)
+    
