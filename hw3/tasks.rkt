@@ -29,6 +29,16 @@
         (else (cons (car lst) (insert-after-evens x (cdr lst))))))
 (insert-after-evens 10 '(1 2 3 4 5))
 
+;3zad
+(define (insert-after-deep x lst)
+  (cond ((null? lst) '())
+        ((atom? (car lst)) (if (even? (car lst)) (append (list (car lst) x) (insert-after-deep x (cdr lst))) 
+                                                 (append (list (car lst)) (insert-after-deep x (cdr lst))) ))
+        (else (cons (insert-after-deep x (car lst)) (insert-after-deep x (cdr lst))))))
+        
+
+(insert-after-deep 10 '(1 ((2) 3 4) (((5))) 6 7))
+
 ;4 zad
 (define (begins-with? lst1 lst2)
   (cond ((null? lst1) #t)
