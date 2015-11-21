@@ -75,3 +75,19 @@
   (helper lst '()))
 (make-set '(1 2 2 4 3 2 1 3 4))
         
+        
+;bonus
+
+(define (str l elem)
+  (map (lambda (x) (cons x elem)) l))
+
+;(str '(1 2 3) 4)
+
+(define (descartes l1 l2)
+  (define (helper lst mas)
+    (cond ((null? lst) mas)
+          ((null? (cdr lst)) (append mas (str l1 (car lst))))
+          (else (helper (cdr lst) (append (str l1 (car lst)))))))
+  (helper l2 '()))
+
+(descartes '(1 2 3) '(a b))
