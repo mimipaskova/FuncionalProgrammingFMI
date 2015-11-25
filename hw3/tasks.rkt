@@ -62,6 +62,11 @@
 (sublist? '(4 3 5) '(1 2 3 4 5))
 
 ;5 zad
+(define (elem? el lst)
+  (cond ((null? lst) #f)
+        ((equal? el (car lst)) #t)
+        (else (elem? el (cdr lst)))))
+
 (define (elem? elem lst)
   (if (> (counts elem lst) 0) #t #f))
 
