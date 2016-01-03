@@ -35,7 +35,7 @@
   (if (= n 0) (car lst)
       (getNelement (cdr lst) (- n 1))))
 
-;get random word which is filtered bu f (function)
+;get random word which is filtered by f (function)
 (define (getRandom f lst)
   (getNelement (f lst) (random (length (f lst)))))
 
@@ -52,13 +52,22 @@
 (define (getAllOpredelenia lst)
   (filter (lambda (x) (equal? "o" (car (cdr x)))) lst))
 
-;(getRandom getAllPodlog example)
+(define (getAllSkazuemi lst)
+  (filter (lambda (x) (equal? "s" (car (cdr x)))) lst))
 
+;(getRandom getAllPodlog example)
+;Problem - if there isn't kind mn
 (define (findOpredelenieByPodlogAndPodlog lst)
   (let* [(podlog (getRandom getAllPodlog example))
-         (kind (caddr podlog))]
-   ; (list (car (filterBySecondLabel (getAllOpredelenia lst) kind)) podlog)))
-(map (lambda (x) (car x)) (list (car (filterBySecondLabel (getAllOpredelenia lst) kind)) podlog))))
+         (kind (caddr podlog))
+         ;(skazuemo (if (> 1 0) 1 0))
+         (skazuemo (if (equal? kind "mn") (getRandom getAllSkazuemi (filterBySecondLabel (getAllSkazuemi example) "mn"))
+        (getRandom getAllSkazuemi (filterBySecondLabel (getAllSkazuemi example) "ed"))))
+         ]
+    ;(if (equal? kind "mn") (car (getRandom getAllSkazuemi (filterBySecondLabel (getAllSkazuemi example) "mn")))
+     ;   (car (getRandom getAllSkazuemi (filterBySecondLabel (getAllSkazuemi example) "ed"))))
+    ;(cons (car (filterBySecondLabel (getAllOpredelenia lst) kind)) (list podlog skazuemo))))
+(map (lambda (x) (car x)) (cons (car (filterBySecondLabel (getAllOpredelenia lst) kind)) (list podlog skazuemo)))))
 
 (findOpredelenieByPodlogAndPodlog example)
 
