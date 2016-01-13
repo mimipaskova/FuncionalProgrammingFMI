@@ -11,9 +11,12 @@
 ;(filterBySecondLabel lstt "m")
 ;(filterByFirstLabel (filterBySecondLabel lstt "m") "s")
 
-(define example '(("golqmoto" "o" "sr") ("kuche" "p" "sr") ("lae" "s" "ed") ("pticite" "d")
-                                        ("zelenite" "o" "mn") ("jabi" "p" "mn") ("gledat" "s" "mn")
-                                        ("kum nebeto" "d") ))
+;(define example '(("golqmoto" "o" "sr") ("kuche" "p" "sr") ("lae" "s" "ed") ("pticite" "d")
+;                                        ("zelenite" "o" "mn") ("jabi" "p" "mn") ("gledat" "s" "mn")
+;                                        ("kum nebeto" "d") ))
+
+(define in (open-input-file "data.txt"))
+(define example (read in))
 
 
 (define (filterDupulnenia lst)

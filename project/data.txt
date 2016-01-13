@@ -1,0 +1,3 @@
+(("golqmoto" "o" "sr") ("kuche" "p" "sr") ("lae" "s" "ed") ("pticite" "d")
+                                        ("zelenite" "o" "mn") ("jabi" "p" "mn") ("gledat" "s" "mn")
+                                        ("kum nebeto" "d") )
