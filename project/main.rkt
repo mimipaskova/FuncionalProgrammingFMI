@@ -77,6 +77,10 @@
 (define (getOPD lst)
   (append (findOpredelenieByPodlogAndPodlog lst) (list (getRandom getAllDopulnenia lst))))
 
-(getOPD example)
+(define output (getOPD example))
+
+(call-with-output-file "output.txt"
+                    (lambda (out)
+                      (write output out)))
 
 
