@@ -82,5 +82,13 @@
 (call-with-output-file "output.txt"
                     (lambda (out)
                       (write output out)))
+                      
+                      
+                      
+(define out (open-output-file "output.txt" 'append))
+(write output out)
+(write out)
+(newline out)
+(close-output-port out)                      
 
 
