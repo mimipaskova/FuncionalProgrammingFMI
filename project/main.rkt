@@ -10,9 +10,9 @@
 (define in (open-input-file "data.txt"))
 (define example (read in))
 
-;намира всички определения
+;намира всички определения и прави първата буква главна!
 (define (getAllAttributes lst)
-  (filter (lambda (x) (equal? "o" (car (cdr x)))) lst))
+  (map (lambda (x) (cons (string-titlecase (car x)) (cdr x))) (filter (lambda (x) (equal? "o" (car (cdr x)))) lst)))
 
 ;намира всички подлози
 (define (getAllSubjects lst)
@@ -49,11 +49,23 @@
   (append (generateSentenceWithoutObject lst) (list (getRandom getAllObjects lst) '".")))
 
 (define output (generateRandomSentence example))
+
 output
 
-(define out (open-output-file "output.txt" 'append))
-(write (apply string-append (map (lambda (x) (string-append x " ")) output)) out)
-(newline out)
-(close-output-port out)                      
+(define out (open-output-file "outputt.txt" 'append))
+
+ 
+
+(define (generateNSentences n)
+  (cond ((> n 0)
+         (write (apply string-append (map (lambda (x) (string-append x " ")) (generateRandomSentence example))) out)
+         (newline out)
+         (lqlq (- n 1)))
+        (else
+         (close-output-port out))))
+
+(generateNSentences 10)
+
+                      
 
 
