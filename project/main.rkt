@@ -36,36 +36,32 @@
   (getNelement (f lst) (random (length (f lst)))))
 
 ;Problem - if there isn't kind mn
-(define (generateSentenceWithoutObject lst)
-  (let* [(podlog (getRandom getAllSubjects example))
-         (kind (caddr podlog))
-         ;(skazuemo (if (> 1 0) 1 0))
-         (skazuemo (if (equal? kind "mn") (getRandom getAllPredicates (filterBySecondLabel (getAllPredicates example) "mn"))
+(define (generateSentenceWithoutObject)
+  (let* [(subject (getRandom getAllSubjects example))
+         (kind (caddr subject))
+         ;(predicate (if (> 1 0) 1 0))
+         (predicate (if (equal? kind "mn") (getRandom getAllPredicates (filterBySecondLabel (getAllPredicates example) "mn"))
         (getRandom getAllPredicates (filterBySecondLabel (getAllPredicates example) "ed"))))
          ]
-  (map car (list (car (filterBySecondLabel (getAllAttributes lst) kind)) podlog skazuemo))))
+  (map car (list (car (filterBySecondLabel (getAllAttributes example) kind)) subject predicate))))
 
-(define (generateRandomSentence lst)
-  (append (generateSentenceWithoutObject lst) (list (getRandom getAllObjects lst) '".")))
+(define (generateRandomSentence)
+  (append (generateSentenceWithoutObject) (list (getRandom getAllObjects example) '".")))
 
-(define output (generateRandomSentence example))
+(define output (generateRandomSentence))
 
 output
 
-(define out (open-output-file "outputt.txt" 'append))
+(define out (open-output-file "output.txt" 'append))
 
  
 
 (define (generateNSentences n)
   (cond ((> n 0)
-         (write (apply string-append (map (lambda (x) (string-append x " ")) (generateRandomSentence example))) out)
+         (write (apply string-append (map (lambda (x) (string-append x " ")) (generateRandomSentence))) out)
          (newline out)
-         (lqlq (- n 1)))
+         (generateNSentences (- n 1)))
         (else
          (close-output-port out))))
 
 (generateNSentences 10)
-
-                      
-
-
