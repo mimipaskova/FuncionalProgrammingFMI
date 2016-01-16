@@ -33,13 +33,13 @@
 
 ;Намира произволна дума, която е филтрирана чрез f (функция)
 (define (getRandom f lst)
-  (if (= 0 (length (f lst))) '()
+  (if (= 0 (length (f lst))) -1
       (getNelement (f lst) (random (length (f lst))))))
 
 ;Problem - if there isn't kind mn
 (define (generateSentenceWithoutObject)
-  (cond ((or (equal? '() (getRandom getAllSubjects example)) (equal? '() (getRandom getAllPredicates example)))
-         '())
+  (cond ((or (equal? -1 (getRandom getAllSubjects example)) (equal? -1 (getRandom getAllPredicates example)))
+         -1)
         (else
          (let* [(subject (getRandom getAllSubjects example))
                 (kind (caddr subject))
@@ -49,7 +49,7 @@
            (map car (list (car (filterBySecondLabel (getAllAttributes example) kind)) subject predicate))))))
 
 (define (generateRandomSentence)
-  (if (equal? '() (generateSentenceWithoutObject)) '()
+  (if (equal? -1 (generateSentenceWithoutObject)) -1
   (append (generateSentenceWithoutObject) (list (getRandom getAllObjects example) '"."))))
 
 (define output (generateRandomSentence))
@@ -57,7 +57,7 @@
 (define out (open-output-file "output.txt" 'append))
 
  (define (generateNSentences n)
-  (cond ((equal? '() (generateRandomSentence)) -1)
+  (cond ((equal? -1 (generateRandomSentence)) -1)
         ((> n 0)
          (write (apply string-append (map (lambda (x) (string-append x " ")) (generateRandomSentence))) out)
          (newline out)
