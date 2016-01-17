@@ -45,24 +45,34 @@
                 (kind (caddr subject))
                 (predicate (if (equal? kind "mn") (getRandom getAllPredicates (filterBySecondLabel (getAllPredicates example) "mn"))
         (getRandom getAllPredicates (filterBySecondLabel (getAllPredicates example) "ed"))))
+                (attribute (if (equal? '() (filterBySecondLabel (getAllAttributes example) kind)) -1
+                               (filterBySecondLabel (getAllAttributes example) kind)))
                 ]
-           (map car (list (car (filterBySecondLabel (getAllAttributes example) kind)) subject predicate))))))
+           (if (equal? attribute -1) -1
+               (map car (list (car attribute) subject predicate)))))))
 
 (define (generateRandomSentence)
-  (if (equal? -1 (generateSentenceWithoutObject)) -1
-  (append (generateSentenceWithoutObject) (list (getRandom getAllObjects example) '"."))))
+  (let* [(sentence (generateSentenceWithoutObject))
+        ]
+    (if (equal? -1 sentence) -1
+        (append sentence (list (getRandom getAllObjects example) '".")))))
 
 (define output (generateRandomSentence))
 
 (define out (open-output-file "output.txt" 'append))
 
  (define (generateNSentences n)
-  (cond ((equal? -1 (generateRandomSentence)) -1)
-        ((> n 0)
-         (write (apply string-append (map (lambda (x) (string-append x " ")) (generateRandomSentence))) out)
-         (newline out)
-         (generateNSentences (- n 1)))
-        (else
-         (close-output-port out))))
+   (let* [(sentence (generateRandomSentence))
+        ]
+     (cond ((and (> n 0) (equal? -1 sentence))
+            (write -1 out)
+            (newline out)
+            (generateNSentences (- n 1)))
+           ((and (> n 0) (not (equal? -1 sentence)))
+            (write (apply string-append (map (lambda (x) (string-append x " ")) sentence)) out)
+            (newline out)
+            (generateNSentences (- n 1)))
+           (else
+            (close-output-port out)))))
 
 (generateNSentences 10)
