@@ -9,6 +9,9 @@ multiply x y z = x*y*z
 inc :: Num a => a -> a
 inc x = x + 1
 
+dec :: Num a=> a -> a
+dec x = x - 1
+
 --3 zad
 even' :: Integral a => a -> Bool
 even' x = x `mod` 2 == 0
