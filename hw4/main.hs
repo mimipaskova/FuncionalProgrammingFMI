@@ -21,6 +21,15 @@ removeNths n lst = (take (n-1) lst) : removeNths n (drop (n) lst)
 removeNth n lst = foldr (++) [] $ removeNths n lst
 
 
+mergeSort [] lst2 = lst2
+mergeSort lst1 [] = lst1
+mergeSort (h1:t1) (h2:t2) pred = if (h1 `pred` h2) then (h1 : (mergeSort t1 (h2:t2) pred )) else (h2 : mergeSort (h1:t1) t2 pred)
+
+mergeSort [] lst2 = lst2
+mergeSort lst1 [] = lst1
+mergeSort (h1:t1) (h2:t2) = if (h1 > h2) then (h1 : (mergeSort t1 (h2:t2) )) else (h2 : mergeSort (h1:t1) t2)
+
+
 
 
 
