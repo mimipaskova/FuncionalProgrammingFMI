@@ -1,0 +1,3 @@
+;4 zad
+(define (counts elem lst)
+  (length (filter (lambda (x) (equal? x elem)) lst)))
