@@ -3,6 +3,8 @@ prime 1 = False
 prime n = null [x | x<- [2.. sqn], n `mod` x == 0]
 				where sqn = (floor(sqrt(fromIntegral n)))
 
+primes = filter prime [1..]	
+
 primeSqSum start end =sum [x^2 | x<-(filter prime[start..end])]
 
 -- 2 zad
@@ -20,39 +22,15 @@ removeNths n lst = (take (n-1) lst) : removeNths n (drop (n) lst)
 
 removeNth n lst = foldr (++) [] $ removeNths n lst
 
+-- 5 zad
+merge [] lst2 = lst2
+merge lst1 [] = lst1
+merge (h1:t1) (h2:t2) = if (h1 < h2) then (h1 : (merge t1 (h2:t2) )) else (h2 : merge (h1:t1) t2)
 
-mergeSort [] lst2 = lst2
-mergeSort lst1 [] = lst1
-mergeSort (h1:t1) (h2:t2) pred = if (h1 `pred` h2) then (h1 : (mergeSort t1 (h2:t2) pred )) else (h2 : mergeSort (h1:t1) t2 pred)
+-- 6 zad
+mergeSort [] = []
+mergeSort [h] = [h]
+mergeSort (h:t) = merge [h] (mergeSort t)
 
-mergeSort [] lst2 = lst2
-mergeSort lst1 [] = lst1
-mergeSort (h1:t1) (h2:t2) = if (h1 > h2) then (h1 : (mergeSort t1 (h2:t2) )) else (h2 : mergeSort (h1:t1) t2)
-
-
-
-
-
-
-
-
-
-
--- removeNth 1 (h:t) = t
--- removeNth n (h:t) = h : removeNth (n-1) t
-
--- getNths n end= [n, n+n..end]
--- -- getNths n) (removeNth n lst)
--- -- remove n lst = [x | y<-(getNths n (length lst)), x<-(removeNth y lst)]
-
--- -- tova gurmi
-
--- remove n lst = map  (\x -> removeNth x lst) (getNths n (length lst))
-
--- -- remove n lst = map  product [n, n+n..]
-
--- -- tova e vzeto ot drugade i gurmi
--- sumProduct ls = sum $ map product ls
-
-
-
+-- 7 zad
+goldbach n = head [(a,b) | let ps = takeWhile (<n) primes, a<-ps, b<-ps, a+b==n]
