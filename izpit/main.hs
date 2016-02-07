@@ -21,3 +21,6 @@ expiringItems lst = (fst $ head (sortBy cmp ([(name,ttl) | (name,ttl)<-lst, ttl>
 type Battery = (Int, Double)
 bestBattery :: [Battery] -> Int -> Double
 bestBattery lst number = minimum [price | (cap, price)<-lst, cap>=number]
+
+-- modifikaciq na bestBattery kato izvejda cap
+be lst number =head [cap | (cap, price)<-lst, cap >= number, let mini = minimum [y |(x,y)<-lst, x>=number], price == mini]
